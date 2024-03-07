@@ -1,7 +1,7 @@
 package com.example.quizproject.converters.category;
 
 import com.example.quizproject.db.entities.Category;
-import com.example.quizproject.models.input.CategoryInput;
+import com.example.quizproject.models.inputs.CategoryInput;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 

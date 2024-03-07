@@ -1,4 +1,4 @@
-package com.example.quizproject.models.output;
+package com.example.quizproject.models.outputs;
 
 import lombok.*;
 

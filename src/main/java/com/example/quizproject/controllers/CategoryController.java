@@ -1,8 +1,8 @@
-package com.example.quizproject.controller;
+package com.example.quizproject.controllers;
 
-import com.example.quizproject.models.input.CategoryInput;
-import com.example.quizproject.models.output.CategoryOutput;
-import com.example.quizproject.service.service.CategoryService;
+import com.example.quizproject.models.inputs.CategoryInput;
+import com.example.quizproject.models.outputs.CategoryOutput;
+import com.example.quizproject.services.services.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
+
     private final CategoryService categoryService;
 
     public CategoryController(CategoryService categoryService) {

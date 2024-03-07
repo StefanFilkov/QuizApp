@@ -1,4 +1,4 @@
-package com.example.quizproject.models.output;
+package com.example.quizproject.models.outputs;
 
 import lombok.*;
 
@@ -9,4 +9,5 @@ import lombok.*;
 @Builder
 public class DifficultyOutput {
     private String id;
+    private String difficulty;
 }

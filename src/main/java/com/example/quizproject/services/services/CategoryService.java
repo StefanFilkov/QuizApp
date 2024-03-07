@@ -1,7 +1,7 @@
-package com.example.quizproject.service.service;
+package com.example.quizproject.services.services;
 
-import com.example.quizproject.models.input.CategoryInput;
-import com.example.quizproject.models.output.CategoryOutput;
+import com.example.quizproject.models.inputs.CategoryInput;
+import com.example.quizproject.models.outputs.CategoryOutput;
 
 public interface CategoryService  {
     CategoryOutput createCategory(CategoryInput input);
