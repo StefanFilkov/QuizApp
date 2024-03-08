@@ -1,4 +1,4 @@
-package com.example.quizproject.converters.difficulty;
+package com.example.quizproject.converters.difficulties;
 
 import com.example.quizproject.db.entities.Difficulty;
 import com.example.quizproject.models.inputs.DifficultyInput;

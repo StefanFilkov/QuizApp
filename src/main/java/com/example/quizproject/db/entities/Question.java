@@ -20,7 +20,7 @@ public class Question {
     @Column(name = "id", nullable = false)
     private String id;
 
-    @Column(name = "questionBody", nullable = false, unique = true)
+    @Column(name = "question_body", nullable = false, unique = true)
     private String questionBody;
 
     @ManyToOne
