@@ -1,4 +1,4 @@
-package com.example.quizproject.converters.category;
+package com.example.quizproject.converters.categories;
 
 import com.example.quizproject.db.entities.Category;
 import com.example.quizproject.models.outputs.CategoryOutput;

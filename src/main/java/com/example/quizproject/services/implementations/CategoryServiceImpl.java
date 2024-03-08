@@ -8,6 +8,9 @@ import com.example.quizproject.services.services.CategoryService;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
@@ -21,8 +24,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryOutput createCategory(CategoryInput input) {
         Category category = conversionService.convert(input, Category.class);
-        System.out.println("category "+ category);
-        System.out.println("input "+input);
         Category savedCategory = categoryRepository.save(category);
         return conversionService.convert(savedCategory, CategoryOutput.class);
 
@@ -38,5 +39,16 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryOutput updateCategory(CategoryInput input) {
         //TODO
         return null;
+    }
+
+    @Override
+    public List<CategoryOutput> listAllCategories() {
+        List<CategoryOutput> result= new ArrayList<>();
+        List<Category> list = categoryRepository.findAll();
+        for(Category c : list){
+            result.add(conversionService.convert(c, CategoryOutput.class));
+
+        }
+        return result;
     }
 }
