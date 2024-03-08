@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -31,8 +32,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryOutput getCategoryById(String id) {
-        //TODO
-        return null;
+        Optional<Category> optionalEntity =  categoryRepository.findById(id);
+        CategoryOutput categoryOutput = conversionService.convert(optionalEntity.get(),CategoryOutput.class);
+        return categoryOutput;
+
     }
 
     @Override

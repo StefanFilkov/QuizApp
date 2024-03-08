@@ -29,4 +29,9 @@ public class CategoryController {
     public ResponseEntity<List<CategoryOutput>> listAllCategories(){
         return new ResponseEntity<>(categoryService.listAllCategories(), HttpStatus.OK);
     }
+
+    @PostMapping("/getbyid")
+    public ResponseEntity<CategoryOutput> getCategoryById(String id){
+        return new ResponseEntity<>(categoryService.getCategoryById(id),HttpStatus.OK);
+    }
 }
