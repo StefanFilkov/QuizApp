@@ -31,7 +31,7 @@ public class CategoryController {
     }
 
     @PostMapping("/getbyid")
-    public ResponseEntity<CategoryOutput> getCategoryById(String id){
+    public ResponseEntity<CategoryOutput> getCategoryById(@RequestParam  String id){
         return new ResponseEntity<>(categoryService.getCategoryById(id),HttpStatus.OK);
     }
 }

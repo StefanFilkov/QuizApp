@@ -1,15 +1,20 @@
 package com.example.quizproject.services.implementations;
 
+import com.example.quizproject.db.entities.Category;
 import com.example.quizproject.db.entities.Difficulty;
 import com.example.quizproject.db.repositories.DifficultyRepository;
 import com.example.quizproject.models.inputs.DifficultyInput;
+import com.example.quizproject.models.outputs.CategoryOutput;
 import com.example.quizproject.models.outputs.DifficultyOutput;
+import com.example.quizproject.models.outputs.QuestionOutput;
 import com.example.quizproject.services.services.DifficultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DifficultyServiceImpl implements DifficultyService {
@@ -30,8 +35,19 @@ public class DifficultyServiceImpl implements DifficultyService {
 
     @Override
     public DifficultyOutput getDifficultyById(String id) {
-        //TODO
-        return null;
+        Optional<Difficulty> optionalEntity = difficultyRepository.findById(id);
+        DifficultyOutput difficultyOutput = conversionService.convert(optionalEntity.get(), DifficultyOutput.class);
+        return difficultyOutput;
+    }
+
+    @Override
+    public List<DifficultyOutput> getAllDifficulty() {
+        List<DifficultyOutput> result = new ArrayList<>();
+        List<Difficulty> list = difficultyRepository.findAll();
+        for(Difficulty d : list){
+            result.add(conversionService.convert(d,DifficultyOutput.class));
+        }
+        return result;
     }
 
 }

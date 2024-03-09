@@ -8,5 +8,6 @@ import java.util.List;
 public interface DifficultyService {
     DifficultyOutput createDifficulty(DifficultyInput input);
     DifficultyOutput getDifficultyById(String id);
+    List<DifficultyOutput> getAllDifficulty();
 
 }

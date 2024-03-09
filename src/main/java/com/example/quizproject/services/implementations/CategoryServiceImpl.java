@@ -50,7 +50,6 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> list = categoryRepository.findAll();
         for(Category c : list){
             result.add(conversionService.convert(c, CategoryOutput.class));
-
         }
         return result;
     }
