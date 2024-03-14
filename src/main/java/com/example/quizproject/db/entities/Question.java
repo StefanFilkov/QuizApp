@@ -20,7 +20,7 @@ public class Question {
     @Column(name = "id", nullable = false)
     private String id;
 
-    @Column(name = "question_body", nullable = false, unique = true)
+    @Column(name = "question_body")
     private String questionBody;
 
     @ManyToOne
@@ -31,6 +31,9 @@ public class Question {
 
     @ManyToOne
     private Quiz quiz;
+
+    @Column(name = "right_answer_id")
+    private String rightAnswerId;
 
     @OneToMany
     @JoinColumn(name = "question_id", referencedColumnName = "id")

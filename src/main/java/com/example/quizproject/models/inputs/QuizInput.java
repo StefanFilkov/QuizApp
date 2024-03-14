@@ -12,6 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QuizInput {
-    private User user;
-    private List<Question> questions;
+    private String userId;
+    private List<String> questionIds;
 }

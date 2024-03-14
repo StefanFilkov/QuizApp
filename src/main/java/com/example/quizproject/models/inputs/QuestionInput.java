@@ -14,10 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class QuestionInput {
-    private Answer answer;
-    private Difficulty difficulty;
-    private Category category;
-    private String questionBody;
-    private Quiz quiz;
-    private List<Answer> answers;
+    private String QuestionBody;
+    private String difficultyId;
+    private String categoryId;
+    //private List<String> answersIds;
+    private String rightAnswerId;
+    private String quizId;
 }
