@@ -10,6 +10,5 @@ import lombok.*;
 @AllArgsConstructor
 public class AnswerInput {
     private String answer;
-    private Boolean isRight;
-    private Question question;
+    private String questionId;
 }

@@ -12,7 +12,6 @@ public class AnswerToAnswerOutput implements Converter<Answer, AnswerOutput> {
         return AnswerOutput.builder()
                 .id(source.getId())
                 .answer(source.getAnswer())
-                .isRight(source.getIsRight())
                 .question(source.getQuestion())
                 .build();
     }
