@@ -25,4 +25,6 @@ public class Difficulty {
     @OneToMany
     @JoinColumn(name = "difficulty_id", referencedColumnName = "id")
     private List<Question> questions;
+
+    Difficulty(String difficulty) { this.difficulty = difficulty; }
 }
