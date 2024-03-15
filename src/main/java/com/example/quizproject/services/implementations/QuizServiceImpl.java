@@ -57,7 +57,7 @@ public class QuizServiceImpl implements QuizService {
     public List<Question> listAllQuestions() {
         return null;
     }
-
+    
     private void setQuizUserById(Quiz quiz, String userId){
         //TODO Exception if id doesn't exist
         quiz.setUser(userRepository.findById(userId).get());

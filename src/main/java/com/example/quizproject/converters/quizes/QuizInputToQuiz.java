@@ -12,8 +12,7 @@ public class QuizInputToQuiz implements Converter<QuizInput, Quiz> {
     public Quiz convert(QuizInput source) {
         return Quiz
                 .builder()
-                .user(source.getUser())
-                .questions(source.getQuestions())
+                .name(source.getName())
                 .build();
     }
 }

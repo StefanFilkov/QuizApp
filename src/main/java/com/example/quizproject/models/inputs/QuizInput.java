@@ -13,5 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class QuizInput {
     private String userId;
+    private String name;
     private List<String> questionIds;
 }

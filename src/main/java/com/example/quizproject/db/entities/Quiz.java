@@ -18,6 +18,9 @@ public class Quiz {
     @Column(name = "id", nullable = false)
     private String id;
 
+    @Column(name = "name")
+    private String name;
+
     @ManyToOne
     private User user;
 
