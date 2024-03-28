@@ -1,12 +1,16 @@
 package com.example.quizproject.services.implementations;
 
+import com.example.quizproject.db.entities.Category;
+import com.example.quizproject.db.entities.Difficulty;
 import com.example.quizproject.db.entities.Question;
 import com.example.quizproject.db.entities.Quiz;
-import com.example.quizproject.db.repositories.QuestionRepository;
-import com.example.quizproject.db.repositories.QuizRepository;
-import com.example.quizproject.db.repositories.UserRepository;
-import com.example.quizproject.models.inputs.QuizInput;
-import com.example.quizproject.models.outputs.QuizOutput;
+import com.example.quizproject.db.models.advancedInputs.CompleteQuizInput;
+import com.example.quizproject.db.models.inputs.QuizInput;
+import com.example.quizproject.db.models.outputs.QuizOutput;
+import com.example.quizproject.db.repositories.*;
+import com.example.quizproject.services.services.AnswerService;
+import com.example.quizproject.services.services.CategoryService;
+import com.example.quizproject.services.services.QuestionService;
 import com.example.quizproject.services.services.QuizService;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
@@ -21,14 +25,21 @@ public class QuizServiceImpl implements QuizService {
     private final ConversionService conversionService;
     private final UserRepository userRepository;
     private final QuestionRepository questionRepository;
+    private final CategoryRepository categoryRepository;
+
+    private final DifficultyRepository difficultyRepository;
 
     public QuizServiceImpl(QuizRepository quizRepository, ConversionService conversionService,
                            UserRepository userRepository,
-                           QuestionRepository questionRepository) {
+                           QuestionRepository questionRepository,
+                           CategoryRepository categoryRepository,
+                           DifficultyRepository difficultyRepository) {
         this.quizRepository = quizRepository;
         this.conversionService = conversionService;
         this.userRepository = userRepository;
         this.questionRepository = questionRepository;
+        this.categoryRepository = categoryRepository;
+        this.difficultyRepository = difficultyRepository;
     }
 
     @Override
@@ -45,7 +56,8 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public QuizOutput getQuizById(String id) {
-        return null;
+        Quiz quiz = quizRepository.findById(id).get();
+        return conversionService.convert(quiz, QuizOutput.class);
     }
 
     @Override
@@ -57,17 +69,50 @@ public class QuizServiceImpl implements QuizService {
     public List<Question> listAllQuestions() {
         return null;
     }
-    
-    private void setQuizUserById(Quiz quiz, String userId){
-        //TODO Exception if id doesn't exist
-        quiz.setUser(userRepository.findById(userId).get());
+
+    @Override
+    public QuizOutput createCompleteQuiz(CompleteQuizInput input) {
+        Quiz quiz = conversionService.convert(input, Quiz.class);
+
+        quiz.getQuestions().forEach(question -> {
+
+            if (question.getCategory().getId() == null)
+                if (categoryRepository.findByCategoryName(question.getCategory().getCategoryName()).isEmpty())
+                    question.setCategory(categoryRepository.save(question.getCategory()));
+                else
+                    question.setCategory(categoryRepository.findByCategoryName(question.getCategory().getCategoryName()).get());
+
+
+            if (question.getDifficulty().getId() == null)
+                if (difficultyRepository.findByDifficultyValue(question.getDifficulty().getDifficultyValue()).isEmpty())
+                    question.setDifficulty(difficultyRepository.save(question.getDifficulty()));
+                else
+                    question.setDifficulty(difficultyRepository.findByDifficultyValue(question.getDifficulty().getDifficultyValue()).get());
+
+
+            for (int j = 0; j < question.getAnswers().size(); j++)
+                question.getAnswers().get(j).setQuestion(question);
+        });
+
+        quiz.setUser(null); //TODO
+
+        questionRepository.saveAll(quiz.getQuestions());
+        Quiz save = quizRepository.save(quiz);
+        return conversionService.convert(save, QuizOutput.class);
+
     }
 
-    private void setQuizQuestionsById(Quiz quiz, List<String> list){
+
+    private void setQuizUserById(Quiz quiz, String userId) {
         //TODO Exception if id doesn't exist
-        List<Question> result= new ArrayList<>();
+        quiz.setUser(userRepository.findById(userId).orElse(null));
+    }
+
+    private void setQuizQuestionsById(Quiz quiz, List<String> list) {
+        //TODO Exception if id doesn't exist
+        List<Question> result = new ArrayList<>();
         for (String s : list)
-            result.add(questionRepository.findById(s).get());
+            result.add(questionRepository.findById(s).orElse(null));
 
         quiz.setQuestions(result);
     }

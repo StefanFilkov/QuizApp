@@ -22,7 +22,7 @@ public class Answer {
     @Column(name = "answer", nullable = false)
     private String answer;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Question question;
 
 }

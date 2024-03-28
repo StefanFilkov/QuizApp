@@ -1,12 +1,9 @@
 package com.example.quizproject.services.implementations;
 
-import com.example.quizproject.db.entities.Category;
 import com.example.quizproject.db.entities.Difficulty;
 import com.example.quizproject.db.repositories.DifficultyRepository;
-import com.example.quizproject.models.inputs.DifficultyInput;
-import com.example.quizproject.models.outputs.CategoryOutput;
-import com.example.quizproject.models.outputs.DifficultyOutput;
-import com.example.quizproject.models.outputs.QuestionOutput;
+import com.example.quizproject.db.models.inputs.DifficultyInput;
+import com.example.quizproject.db.models.outputs.DifficultyOutput;
 import com.example.quizproject.services.services.DifficultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;

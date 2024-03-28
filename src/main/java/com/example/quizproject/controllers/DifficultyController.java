@@ -1,7 +1,7 @@
 package com.example.quizproject.controllers;
 
-import com.example.quizproject.models.inputs.DifficultyInput;
-import com.example.quizproject.models.outputs.DifficultyOutput;
+import com.example.quizproject.db.models.inputs.DifficultyInput;
+import com.example.quizproject.db.models.outputs.DifficultyOutput;
 import com.example.quizproject.services.services.DifficultyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

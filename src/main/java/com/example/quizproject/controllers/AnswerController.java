@@ -1,10 +1,9 @@
 package com.example.quizproject.controllers;
 
-import com.example.quizproject.models.inputs.AnswerInput;
-import com.example.quizproject.models.outputs.AnswerOutput;
+import com.example.quizproject.db.models.inputs.AnswerInput;
+import com.example.quizproject.db.models.outputs.AnswerOutput;
 import com.example.quizproject.services.services.AnswerService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

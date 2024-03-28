@@ -2,8 +2,8 @@ package com.example.quizproject.services.implementations;
 
 import com.example.quizproject.db.entities.Category;
 import com.example.quizproject.db.repositories.CategoryRepository;
-import com.example.quizproject.models.inputs.CategoryInput;
-import com.example.quizproject.models.outputs.CategoryOutput;
+import com.example.quizproject.db.models.inputs.CategoryInput;
+import com.example.quizproject.db.models.outputs.CategoryOutput;
 import com.example.quizproject.services.services.CategoryService;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
+
     private final CategoryRepository categoryRepository;
     private final ConversionService conversionService;
 
@@ -46,11 +47,17 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryOutput> listAllCategories() {
-        List<CategoryOutput> result= new ArrayList<>();
-        List<Category> list = categoryRepository.findAll();
-        for(Category c : list){
-            result.add(conversionService.convert(c, CategoryOutput.class));
-        }
-        return result;
+        //TODO da razgledam
+        List<CategoryOutput> result = new ArrayList<>();
+        List<CategoryOutput> list = categoryRepository
+                .findAll()
+                .stream()
+                .map(category -> conversionService.convert(category, CategoryOutput.class))
+                .toList();
+
+        //        for(Category c : list){
+        //            result.add(conversionService.convert(c, CategoryOutput.class));
+        //        }
+        return list;
     }
 }

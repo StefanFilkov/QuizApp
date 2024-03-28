@@ -1,10 +1,10 @@
 package com.example.quizproject.services.implementations;
 
-import com.example.quizproject.db.entities.Answer;
-import com.example.quizproject.db.entities.Question;
+import com.example.quizproject.db.entities.*;
 import com.example.quizproject.db.repositories.*;
-import com.example.quizproject.models.inputs.QuestionInput;
-import com.example.quizproject.models.outputs.QuestionOutput;
+import com.example.quizproject.exceptions.*;
+import com.example.quizproject.db.models.inputs.QuestionInput;
+import com.example.quizproject.db.models.outputs.QuestionOutput;
 import com.example.quizproject.services.services.QuestionService;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
@@ -49,11 +49,15 @@ public class QuestionServiceImpl implements QuestionService {
     public QuestionOutput createQuestion(QuestionInput input) {
 
         Question question = conversionService.convert(input, Question.class);
+        if (question == null)
+            throw new InputCanNotBeNull();
 
+        question.setDifficulty(getQuestionDifficulty(input.getDifficultyId()));
+        question.setCategory(getQuestionCategory(input.getCategoryId()));
+        question.setQuiz(getQuestionQuiz(input.getQuizId()));
+
+        //question.setAnswers(getQuestionAnswers(input.getAnswerIds));
         //setQuestionByAnswersId(question, input.getAnswersIds());
-        setQuestionByCategoryId(question, input.getCategoryId());
-        setQuestionByDifficultyId(question, input.getDifficultyId());
-        setQuestionByQuizId(question, input.getQuizId());
 
         Question savedQuestion = questionRepository.save(question);
         return conversionService.convert(savedQuestion, QuestionOutput.class);
@@ -65,31 +69,30 @@ public class QuestionServiceImpl implements QuestionService {
         return null;
     }
 
-    private void setQuestionByDifficultyId(Question source, String id){
-        //TODO Exception if "id" is invalid
-        source.setDifficulty((difficultyRepository.findById(id)).get());
+    @Override
+    public List<Question> createMultipleQuestions() {
+        return null;
     }
 
 
-    private void setQuestionByCategoryId(Question source, String id){
-        //TODO Exception if "id" is invalid
-        source.setCategory((categoryRepository.findById(id)).get());
+    private Difficulty getQuestionDifficulty(String id) {
+        return difficultyRepository.findById(id).orElseThrow(() -> new DifficultyIdDoesNotExist(id));
     }
 
 
-    private void setQuestionByQuizId(Question source, String id){
-        //TODO Exception if "id" is invalid
-        source.setQuiz((quizRepository.findById(id)).get());
+    private Category getQuestionCategory(String id) {
+        return categoryRepository.findById(id).orElseThrow(() -> new CategoryIdDoesNotExist(id));
     }
 
 
-    private void setQuestionByAnswersId(Question source, List<String> ids){
-        //TODO Exception if ids is null
+    private Quiz getQuestionQuiz(String id) {
+        return quizRepository.findById(id).orElseThrow(() -> new QuizIdDoesNotExist(id));
+    }
+
+
+    private List<Answer> getQuestionAnswers(List<String> ids) {
         List<Answer> result = new ArrayList<>();
-
-        for(String s: ids)
-            result.add(answerRepository.findById(s).get());
-
-        source.setAnswers(result);
+        ids.forEach(id -> result.add(answerRepository.findById(id).orElseThrow(() -> new AnswerIdDoesNotExist(id))));
+        return result;
     }
 }

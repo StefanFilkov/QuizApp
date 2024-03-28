@@ -19,12 +19,11 @@ public class Difficulty {
     @Column(name = "id", nullable = false)
     private String id;
 
-    @Column(name = "difficulty", nullable = false, unique = true)
-    private String difficulty;
+    @Column(name = "difficulty", nullable = false)
+    private String difficultyValue;
 
-    @OneToMany
-    @JoinColumn(name = "difficulty_id", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "difficulty")
+    //@JoinColumn(name = "difficulty_id", referencedColumnName = "id")
     private List<Question> questions;
 
-    Difficulty(String difficulty) { this.difficulty = difficulty; }
 }

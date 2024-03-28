@@ -23,19 +23,19 @@ public class Question {
     @Column(name = "question_body")
     private String questionBody;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Difficulty difficulty;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Category category;
 
     @ManyToOne
     private Quiz quiz;
 
-    @Column(name = "right_answer_id")
-    private String rightAnswerId;
+    @OneToOne(cascade = CascadeType.REMOVE)
+    private Answer rightAnswer;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "question_id", referencedColumnName = "id")
     private List<Answer> answers;
 }

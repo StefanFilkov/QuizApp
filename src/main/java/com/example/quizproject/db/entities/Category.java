@@ -19,11 +19,11 @@ public class Category {
     @Column(name = "id", nullable = false)
     private String id;
 
-    @Column(name = "category_name", nullable = false, unique = true)
+    @Column(name = "category_name", nullable = false)
     private String categoryName;
 
-    @OneToMany
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+    //@JoinColumn(name = "category_id", referencedColumnName = "id")
     private List<Question> questions;
 
 }

@@ -1,7 +1,7 @@
 package com.example.quizproject.controllers;
 
-import com.example.quizproject.models.inputs.CategoryInput;
-import com.example.quizproject.models.outputs.CategoryOutput;
+import com.example.quizproject.db.models.inputs.CategoryInput;
+import com.example.quizproject.db.models.outputs.CategoryOutput;
 import com.example.quizproject.services.services.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
